@@ -23,12 +23,14 @@ import * as z from 'zod';
 import { amountOption, formSchema, resolutionOption } from './constants';
 import { Card, CardFooter } from '@/components/ui/card';
 import Image from 'next/image';
+import { usePROmodal } from '@/hooks/use-pro-modal';
 
 type Props = {};
 
 const ImagePage = (props: Props) => {
   const router = useRouter();
   const [images, setImages] = useState<string[]>([]);
+  const proModal = usePROmodal();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -52,8 +54,9 @@ const ImagePage = (props: Props) => {
 
       form.reset();
     } catch (err: any) {
-      //todo open model
-      console.log(err);
+      if (err?.response?.status == 403) {
+        proModal.onOpen();
+      }
     } finally {
       router.refresh();
     }

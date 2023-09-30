@@ -19,12 +19,14 @@ import { Empty } from '@/components/Empty';
 import Loader from '@/components/Loader';
 import { UserAvatar } from '@/components/user-avatar';
 import { Botavatra } from '@/components/botAvatar';
+import { usePROmodal } from '@/hooks/use-pro-modal';
 
 type Props = {};
 
 const MusicPage = (props: Props) => {
   const [music, setMusic] = useState<string>();
   const router = useRouter();
+  const proModal = usePROmodal();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -45,8 +47,9 @@ const MusicPage = (props: Props) => {
 
       form.reset();
     } catch (err: any) {
-      //todo open model
-      console.log(err);
+      if (err?.response?.status == 403) {
+        proModal.onOpen();
+      }
     } finally {
       router.refresh();
     }

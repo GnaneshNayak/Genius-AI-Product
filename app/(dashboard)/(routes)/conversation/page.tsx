@@ -19,12 +19,14 @@ import { Empty } from '@/components/Empty';
 import Loader from '@/components/Loader';
 import { UserAvatar } from '@/components/user-avatar';
 import { Botavatra } from '@/components/botAvatar';
+import { usePROmodal } from '@/hooks/use-pro-modal';
 
 type Props = {};
 
-const Coversation = (props: Props) => {
+const Conversation = (props: Props) => {
   const [messages, setMessage] = useState<ChatCompletionRequestMessage[]>([]);
   const router = useRouter();
+  const proModal = usePROmodal();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -51,8 +53,9 @@ const Coversation = (props: Props) => {
 
       form.reset();
     } catch (err: any) {
-      //todo open model
-      console.log(err);
+      if (err?.response?.status == 403) {
+        proModal.onOpen();
+      }
     } finally {
       router.refresh();
     }
@@ -61,8 +64,8 @@ const Coversation = (props: Props) => {
   return (
     <div>
       <Heading
-        title={'Coversation'}
-        description={'Our most advancede coversation'}
+        title={'Conversation'}
+        description={'Our most advanced conversation'}
         iconColor={'text-violet-500'}
         bgColor={'bg-violet-500/10'}
         icon={MessageSquare}
@@ -133,4 +136,4 @@ const Coversation = (props: Props) => {
   );
 };
 
-export default Coversation;
+export default Conversation;

@@ -15,8 +15,11 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import React from 'react';
+import FreeCounter from './freee-counter';
 
-type Props = {};
+type Props = {
+  apiLimitCount: number;
+};
 
 const montserrat = Montserrat({
   weight: '600',
@@ -67,7 +70,7 @@ const routes = [
   },
 ];
 
-const Sidebar = (props: Props) => {
+const Sidebar = ({ apiLimitCount = 0 }: Props) => {
   const pathname = usePathname();
 
   return (
@@ -101,6 +104,7 @@ const Sidebar = (props: Props) => {
           ))}
         </div>
       </div>
+      <FreeCounter apiLimitCount={apiLimitCount} />
     </div>
   );
 };
