@@ -15,6 +15,9 @@ const LandingPage = (props: Props) => {
         <Link href={'/sign-in'}>
           <Button>Login</Button>
         </Link>
+        <Link href={'/dashboard'}>
+          <Button>dash</Button>
+        </Link>
       </div>
     </div>
   );

@@ -1,3 +1,4 @@
+import { checkApiLimit, increaseApiLimit } from '@/lib/api-limit';
 import { auth } from '@clerk/nextjs';
 import { NextRequest, NextResponse } from 'next/server';
 import { Configuration, OpenAIApi } from 'openai';
@@ -22,6 +23,11 @@ export async function POST(req: Request) {
         status: 400,
       });
     }
+    const freeTrial = await checkApiLimit();
+
+    if (!freeTrial) {
+      return new NextResponse('Free trial has expired', { status: 403 });
+    }
 
     const response = await replicate.run(
       'anotherjesse/zeroscope-v2-xl:9f747673945c62801b13b84701c783929c0ee784e4748ec062204894dda1a351',
@@ -31,6 +37,8 @@ export async function POST(req: Request) {
         },
       },
     );
+    await increaseApiLimit();
+
     return NextResponse.json(response);
   } catch (err) {
     console.log('[Video-ERROR]', err);
