@@ -19,6 +19,7 @@ import FreeCounter from './freee-counter';
 
 type Props = {
   apiLimitCount: number;
+  isPro: boolean;
 };
 
 const montserrat = Montserrat({
@@ -70,7 +71,7 @@ const routes = [
   },
 ];
 
-const Sidebar = ({ apiLimitCount = 0 }: Props) => {
+const Sidebar = ({ apiLimitCount = 0, isPro = false }: Props) => {
   const pathname = usePathname();
 
   return (
@@ -104,7 +105,7 @@ const Sidebar = ({ apiLimitCount = 0 }: Props) => {
           ))}
         </div>
       </div>
-      <FreeCounter apiLimitCount={apiLimitCount} />
+      <FreeCounter isPro={isPro} apiLimitCount={apiLimitCount} />
     </div>
   );
 };
