@@ -24,6 +24,7 @@ import { amountOption, formSchema, resolutionOption } from './constants';
 import { Card, CardFooter } from '@/components/ui/card';
 import Image from 'next/image';
 import { usePROmodal } from '@/hooks/use-pro-modal';
+import { toast } from 'react-hot-toast';
 
 type Props = {};
 
@@ -56,6 +57,8 @@ const ImagePage = (props: Props) => {
     } catch (err: any) {
       if (err?.response?.status == 403) {
         proModal.onOpen();
+      } else {
+        toast.error('Something went wrong');
       }
     } finally {
       router.refresh();

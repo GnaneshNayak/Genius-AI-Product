@@ -20,6 +20,7 @@ import Loader from '@/components/Loader';
 import { UserAvatar } from '@/components/user-avatar';
 import { Botavatra } from '@/components/botAvatar';
 import { usePROmodal } from '@/hooks/use-pro-modal';
+import { toast } from 'react-hot-toast';
 
 type Props = {};
 
@@ -49,6 +50,8 @@ const MusicPage = (props: Props) => {
     } catch (err: any) {
       if (err?.response?.status == 403) {
         proModal.onOpen();
+      } else {
+        toast.error('Something went wrong');
       }
     } finally {
       router.refresh();

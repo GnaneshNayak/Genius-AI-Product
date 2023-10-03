@@ -21,6 +21,7 @@ import { UserAvatar } from '@/components/user-avatar';
 import { Botavatra } from '@/components/botAvatar';
 import ReactMarkdown from 'react-markdown';
 import { usePROmodal } from '@/hooks/use-pro-modal';
+import { toast } from 'react-hot-toast';
 type Props = {};
 
 const CodePage = (props: Props) => {
@@ -56,6 +57,8 @@ const CodePage = (props: Props) => {
       // open model
       if (err?.response?.status == 403) {
         proModal.onOpen();
+      } else {
+        toast.error('Something went wrong');
       }
     } finally {
       router.refresh();
