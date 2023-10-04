@@ -9,7 +9,7 @@ const CrispChat = (props: Props) => {
   useEffect(() => {
     Crisp.configure('f7d8df0e-fe50-4726-af21-5dabb0a982f5');
   }, []);
-  return <div>CrispChat</div>;
+  return null;
 };
 
 export default CrispChat;
