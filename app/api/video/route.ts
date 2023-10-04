@@ -1,8 +1,7 @@
 import { checkApiLimit, increaseApiLimit } from '@/lib/api-limit';
 import { checkSubscription } from '@/lib/subscription';
 import { auth } from '@clerk/nextjs';
-import { NextRequest, NextResponse } from 'next/server';
-import { Configuration, OpenAIApi } from 'openai';
+import { NextResponse } from 'next/server';
 import Replicate from 'replicate';
 
 const replicate = new Replicate({
